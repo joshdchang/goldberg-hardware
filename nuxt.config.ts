@@ -8,6 +8,14 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  css: ["~/assets/global.css"],
+  css: [
+    "~/assets/global.css",
+    'primevue/resources/themes/tailwind-light/theme.css',
+    'primevue/resources/primevue.css',
+    'primeicons/primeicons.css',
+  ],
   ssr: false,
+  build: {
+    transpile: ['primevue']
+  }
 })
