@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   },
   css: [
     "~/assets/global.css",
-    'primevue/resources/themes/tailwind-light/theme.css',
+    '~/assets/theme.scss',
     'primevue/resources/primevue.css',
     'primeicons/primeicons.css',
   ],

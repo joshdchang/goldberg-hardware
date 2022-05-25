@@ -10,7 +10,7 @@
         <div v-if="open" class="text-green-600 font-bold uppercase">Open now</div>
         <div v-else class="text-red-600 font-bold uppercase">Closed now</div>
       </div>
-      <Button class="p-button-sm" label="(914) 631-1817" icon="pi pi-phone" iconPos="left" />
+      <Button class="p-button" label="(914) 631-1817" icon="pi pi-phone" iconPos="left" />
     </div>
   </div>
 </template>
