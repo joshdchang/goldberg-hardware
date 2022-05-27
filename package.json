@@ -18,6 +18,7 @@
     "@directus/sdk": "^9.10.0",
     "@vuelidate/core": "^2.0.0-alpha.41",
     "@vuelidate/validators": "^2.0.0-alpha.29",
+    "lodash.debounce": "^4.0.8",
     "primeicons": "^5.0.0"
   }
 }

@@ -102,8 +102,10 @@
         </h2>
       </div>
 
-      <div class="max-w-6xl w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-8 md:gap-10">
-        <div v-for="item of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]" class="bg-white h-60 rounded-lg shadow"></div>
+      <div class="max-w-6xl w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-8 md:gap-10">
+        <div v-for="item of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]" class="bg-white h-60 rounded-lg shadow">
+
+        </div>
       </div>
     </div>
 
@@ -131,6 +133,11 @@
             There are so many reasons to shop at Goldberg Hardware. You may come in initially for the convenience but will surely come back
             after you see the level of service you receive. My customers are often amazed by the selection and competitive pricing. Please
             stop by and introduce yourself.
+          </p>
+          <p class="text-gray-200 text-lg sm:text-xl lg:text-2xl sm:leading-relaxed lg:leading-relaxed">
+            Gregg Goldberg
+            <br>
+            Owner
           </p>
         </div>
         <div class="grid md:col-span-2 gap-4 sm:gap-5 md:gap-7 lg:gap-9 xl:gap-11">
