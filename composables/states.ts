@@ -1,6 +1,6 @@
 import debounce from 'lodash.debounce'
 
-const useScroll = () => useState('scroll', () => {
+export const useScroll = () => useState('scroll', () => {
 
   const handleScroll = () => {
     useScroll().value = window.scrollY
@@ -11,14 +11,30 @@ const useScroll = () => useState('scroll', () => {
   return window.scrollY
 })
 
-// Directus API
-import { Directus } from '@directus/sdk'
 
-const useUrl = () => useState('directusUrl', () => import.meta.env.VITE_DIRECTUS_URL.toString())
-const useDirectus = () => useState('directus', () => new Directus(useUrl().value))
-const useCollection = (collection) => useState('directusCollection-' + collection, () => useDirectus().value.items(collection))
-const useQuery = (collection, query) => useState('directusQuery-' + collection + '-' + JSON.stringify(query), () => useCollection(collection).value.readByQuery(query)).value
-const useItems = (collection, limit = 100, page = 1) => useState('directusItems-' + collection + '-' + limit + '-' + page, () => useQuery(collection, {limit, page})).value
-const useItem = (collection, id = 1) => useState('directusItem-' + collection + '-' + id, () => useCollection(collection).value.readOne(id)).value
+export const useScreenSize = () => useState('size', () => {
+  const handleResize = () => {
+    useScreenSize().value = window.innerWidth
+    useTailwind().value = calculateTailwind(window.innerWidth)
+  }
+  const handleDebouncedResize = debounce(handleResize, 100, { leading: true, trailing: true, maxWait: 100 })
+  window.addEventListener('resize', handleDebouncedResize)
 
-export { useScroll, useUrl, useDirectus, useCollection, useItems, useItem, useQuery }
+  return window.innerWidth
+})
+
+const calculateTailwind = (size) => {
+  let breakpoints = {
+    'sm': 640,
+    'md': 768,
+    'lg': 1024,
+    'xl': 1280,
+    '2xl': 1536,
+  }
+  for (let breakpoint in breakpoints) {
+    breakpoints[breakpoint] = size > breakpoints[breakpoint]
+  }
+  return breakpoints
+}
+
+export const useTailwind = () => useState('tailwind', () => calculateTailwind(useScreenSize().value))
