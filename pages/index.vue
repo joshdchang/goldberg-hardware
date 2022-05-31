@@ -58,7 +58,7 @@
     <div class="aspect-video w-full max-h-[70vh] bg-center bg-no-repeat bg-cover relative"
       :style="`background-image: url('${imageUrl(settings.banner_image)}');`">
       <div
-        class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white font-serif font-semibold absolute bottom-0 w-full p-5 sm:p-8 md:p-12 lg:p-16 xl:p-20 pt-10 sm:pt-14 md:pt-18 lg:pt-24 xl:pt-32 text-center bg-gradient-to-t from-[#000000bd] to-[#00000000]">
+        class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white font-serif font-semibold absolute bottom-0 w-full p-5 sm:p-8 md:p-12 lg:p-16 xl:p-20 pt-10 sm:pt-14 md:pt-18 lg:pt-24 xl:pt-32 text-center bg-gradient-to-t from-[#000510bd] to-[#0000ff00]">
         {{ settings.banner_text }}
       </div>
     </div>
