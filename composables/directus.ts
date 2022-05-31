@@ -7,4 +7,6 @@ const useQuery = async (collection, query) => (await useState('directusQuery-' +
 const useItems = (collection, limit = 100, page = 1) => useQuery(collection, { limit, page })
 const useItem = (collection, id = 1) => useState('directusItem-' + collection + '-' + id, () => useCollection(collection).readOne(id)).value
 
-export { useUrl, useDirectus, useCollection, useItems, useItem, useQuery }
+const useImage = () => uuid => useUrl() + '/assets/' + uuid
+
+export { useUrl, useDirectus, useCollection, useItems, useItem, useQuery, useImage }

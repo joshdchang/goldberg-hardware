@@ -1,21 +1,27 @@
 <script setup>
 
-  // const home = await useItem('home')
-  const open = true
-
   const scroll = useScroll()
   const title = ref(null)
   const height = ref(0)
+  const tailwind = useTailwind()
 
   onMounted(() => {
     height.value = title.value.clientHeight
   })
+  
+  const settings = await useItem('settings')
 
-  const tailwind = useTailwind()
-
-  const messageEnabled = true
-  const messageType = 'warn'
-  const message = 'Goldberg Hardware is closed today due to Memorial Day'
+  const toTimeNum = timeStr => (new Date(timeStr.split(' ')[0] + ' 1/1/1970')).getTime()
+  
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+  const day = days[(new Date).getDay()]
+  const openToday = settings[day]
+  const currentTime = toTimeNum((new Date()).toTimeString())
+  const openTime = toTimeNum(settings[day + '_open'])
+  const closeTime = toTimeNum(settings[day + '_close'])
+  const hasOpened = currentTime > openTime
+  const hasClosed = currentTime > closeTime
+  const open = openToday && hasOpened && !hasClosed
 </script>
 
 <template>
@@ -26,14 +32,14 @@
 
       <!-- scrolled down -->
       <h1 v-if="scroll > height && tailwind['sm']" class="font-serif font-bold text-xl sm:text-2xl text-primary">
-        Goldberg Hardware
+        {{ settings.store_name }}
       </h1>
 
       <!-- hours -->
       <div v-if="!tailwind['sm'] || scroll <= height || tailwind['md']"
         class="grid sm:grid-flow-col gap-2 sm:gap-4 md:text-lg text-center">
         <div class="text-gray-700">
-          Monday - Saturday, 7:30 AM - 5:30 PM
+          {{ settings.hours_description }}
         </div>
         <span v-show="!tailwind['sm'] || scroll <= height || tailwind['lg']">
           <div v-if="open" class="text-green-600 font-bold uppercase">
@@ -46,23 +52,25 @@
       </div>
 
       <!-- phone -->
-      <Button class="p-button-sm" label="(914) 631-1817" icon="pi pi-phone" iconPos="left" />
+      <a :href="'tel:' + settings.phone_number.replace(/\D/g, '')">
+        <Button class="p-button-sm w-full" :label="settings.phone_number" icon="pi pi-phone" iconPos="left" />
+      </a>
       
     </div>
-    <Message v-if="messageEnabled" :severity="messageType" >
-      {{ message }}
+    <Message v-if="settings.alert_enabled" :severity="settings.type" >
+      {{ settings.alert_text }}
     </Message>
   </div>
 
   <!-- title section -->
   <div ref="title" class="p-6 sm:p-8 md:p-10 lg:p-12 flex justify-center items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6">
-    <img src="/icon.png" class="w-16 sm:w-20 md:w-24 lg:w-28">
+    <TheImage :uuid="settings.icon" class="w-16 sm:w-20 md:w-24 lg:w-28" />
     <div class="grid gap-1 sm:gap-2 md:gap-3 lg:gap-4">
       <h1 class="font-serif font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-primary">
-        Goldberg Hardware
+        {{ settings.store_name }}
       </h1>
       <p class="text-gray-600 sm:text-lg md:text-xl lg:text-2xl">
-        63 Main Street, Tarrytown, NY
+        {{ settings.address }}
       </p>
     </div>
   </div>

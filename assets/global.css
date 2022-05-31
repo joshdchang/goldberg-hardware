@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.a-child-style a {
+  @apply text-blue-600 font-medium;
+}
