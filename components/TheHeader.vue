@@ -69,7 +69,7 @@
       <h1 class="font-serif font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-primary">
         {{ settings.store_name }}
       </h1>
-      <p class="text-gray-600 sm:text-lg md:text-xl lg:text-2xl">
+      <p class="text-gray-600 sm:text-lg md:text-xl lg:text-2xl text-center">
         {{ settings.address }}
       </p>
     </div>
