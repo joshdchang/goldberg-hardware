@@ -52,7 +52,15 @@
 <template>
   <div>
 
-    <Html class="bg-gray-100"></Html>
+    <Html class="bg-gray-100">
+      <Head>
+        <Title>
+          {{ settings.store_name }}
+        </Title>
+        <Meta name="description" :content="settings.hook_description" />
+        <Link rel="icon" type="image/x-icon" :href="imageUrl(settings.icon)" />
+      </Head>
+    </Html>
 
     <!-- image section -->
     <div class="w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] bg-center bg-no-repeat bg-cover relative"
