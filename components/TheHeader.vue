@@ -1,5 +1,7 @@
 <script setup>
 
+  import { DateTime, Interval } from "luxon";
+
   const scroll = useScroll()
   const title = ref(null)
   const height = ref(0)
@@ -11,17 +13,23 @@
   
   const settings = await useItem('settings')
 
-  const toTimeNum = timeStr => (new Date(timeStr.split(' ')[0] + ' 1/1/1970')).getTime()
+  // figure out if it is open right now
+  const now = DateTime.now().setZone('America/New_York')
   
-  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-  const day = days[(new Date).getDay()]
+  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+  const day = days[now.weekday - 1]
   const openToday = settings[day]
-  const currentTime = toTimeNum((new Date()).toTimeString())
-  const openTime = toTimeNum(settings[day + '_open'])
-  const closeTime = toTimeNum(settings[day + '_close'])
-  const hasOpened = currentTime > openTime
-  const hasClosed = currentTime > closeTime
-  const open = openToday && hasOpened && !hasClosed
+
+  const rawOpenTime = settings[day + '_open']
+  const rawCloseTime = settings[day + '_close']
+  const openTime = DateTime.fromISO(rawOpenTime, { zone: 'America/New_York' })
+  const closeTime = DateTime.fromISO(rawCloseTime, { zone: 'America/New_York' })
+
+  const openInterval = Interval.fromDateTimes(openTime, closeTime)
+  const openNow = openInterval.contains(now)
+
+  const open = openNow && openToday
+
 </script>
 
 <template>
